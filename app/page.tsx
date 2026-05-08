@@ -1,9 +1,15 @@
+import Hero from "@/components/home/Hero";
+import Categories from "@/components/home/Categories";
+import WhyUs from "@/components/home/WhyUs";
+import CTA from "@/components/home/CTA";
 
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="m-10 rotate-2 border-2 border-amber-400">
-      <h1 className="text-9xl text-red-500 ">Hello world</h1>
-    </div>
+    <>
+      <Hero />
+      <Categories />
+      <WhyUs />
+      <CTA />
+    </>
   );
 }
