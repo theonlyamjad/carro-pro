@@ -3,120 +3,136 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ShieldCheck, Tag, Clock, MessageSquare } from "lucide-react";
+import { ShieldCheck, BadgeDollarSign, Zap, Headphones } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
   {
+    num: "01",
     icon: ShieldCheck,
-    title: "QUALITÉ",
-    desc: "Pièces testées et en bon état. Chaque pièce est vérifiée avant la vente pour vous garantir fiabilité et durabilité.",
+    title: "Qualité",
+    desc: "Chaque pièce est inspectée et testée avant mise en vente. Vous recevez uniquement des pièces en état de marche.",
   },
   {
-    icon: Tag,
-    title: "PRIX",
-    desc: "Compétitifs pour tous. Nous vous offrons les meilleurs prix du marché sans compromis sur la qualité.",
+    num: "02",
+    icon: BadgeDollarSign,
+    title: "Prix",
+    desc: "Des tarifs compétitifs imbattables sur le marché local. Économisez sur vos réparations sans compromis.",
   },
   {
-    icon: Clock,
-    title: "SERVICE",
-    desc: "Rapide, sérieux et professionnel. Votre demande traitée dans les meilleurs délais avec un suivi personnalisé.",
+    num: "03",
+    icon: Zap,
+    title: "Rapidité",
+    desc: "Stock constamment renouvelé. Votre pièce disponible rapidement pour ne pas immobiliser votre véhicule.",
   },
   {
-    icon: MessageSquare,
-    title: "CONSEILS",
-    desc: "Personnalisés pour bien choisir. Notre équipe vous guide vers la pièce idéale adaptée à votre véhicule.",
+    num: "04",
+    icon: Headphones,
+    title: "Conseils",
+    desc: "Notre équipe vous guide vers la bonne pièce pour votre véhicule. Un accompagnement personnalisé du début à la fin.",
   },
 ];
 
 export default function WhyUs() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".pillar-item",
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-          },
-        }
+      gsap.fromTo(".why-header",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: sRef.current, start: "top 80%" } }
       );
-    }, sectionRef);
+      gsap.fromTo(".why-card",
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
+          scrollTrigger: { trigger: ".why-card", start: "top 85%" } }
+      );
+      gsap.fromTo(".why-stat",
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.5)",
+          scrollTrigger: { trigger: ".why-stat", start: "top 85%" } }
+      );
+    }, sRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-black relative overflow-hidden">
-      {/* background accent */}
-      <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-transparent via-[#e01c1c] to-transparent opacity-30" />
+    <section ref={sRef} className="relative bg-black overflow-hidden" style={{ padding: "clamp(5rem,10vw,9rem) 0" }}>
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-[#d42b2b] opacity-[0.04] blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="container-wide">
         {/* Header */}
-        <div className="mb-16 text-center">
-          <div className="flex items-center justify-center gap-4 mb-3">
-            <div className="w-10 h-[3px] bg-[#e01c1c]" />
-            <span className="font-display text-sm tracking-[0.3em] text-[#e01c1c]">
-              POURQUOI NOUS CHOISIR
-            </span>
-            <div className="w-10 h-[3px] bg-[#e01c1c]" />
+        <div className="why-header opacity-0 text-center mb-16">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="rule-red" />
+            <span className="eyebrow">Pourquoi nous choisir</span>
+            <span className="rule-red" />
           </div>
-          <h2 className="font-display text-5xl sm:text-6xl text-white">
-            QUALITÉ • PRIX •{" "}
-            <span className="text-[#e01c1c]">SERVICE</span>
+          <h2 className="font-display font-700 text-white mb-4"
+            style={{ fontSize: "clamp(2.5rem,6vw,5rem)", textTransform: "uppercase", lineHeight: 0.9 }}>
+            Qualité •{" "}
+            <span className="text-[#d42b2b]">Prix</span>{" "}
+            • Service
           </h2>
-          <p className="text-[#a0a0a0] mt-4 max-w-xl mx-auto">
-            On a tout ce qu'il vous faut. Votre satisfaction est notre priorité.
+          <p className="text-white/40 text-sm max-w-md mx-auto font-light leading-relaxed">
+            Votre satisfaction est notre priorité. On a tout ce qu'il vous faut.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#1e1e1e]">
-          {pillars.map((p, i) => {
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.04] mb-px">
+          {pillars.map((p) => {
             const Icon = p.icon;
             return (
               <div
-                key={p.title}
-                className="pillar-item group bg-black hover:bg-[#0d0d0d] p-8 transition-colors duration-300 opacity-0"
+                key={p.num}
+                className="why-card opacity-0 bg-[#0e0e0e] p-8 group hover:bg-[#161616] transition-colors duration-300 relative overflow-hidden"
               >
-                <div className="w-12 h-12 border border-[#e01c1c]/30 group-hover:border-[#e01c1c] group-hover:bg-[#e01c1c]/10 flex items-center justify-center mb-6 transition-all duration-300">
-                  <Icon size={22} className="text-[#e01c1c]" />
+                {/* Number watermark */}
+                <span className="absolute top-4 right-5 font-display font-700 text-6xl text-white/[0.03] select-none pointer-events-none leading-none">
+                  {p.num}
+                </span>
+
+                {/* Icon */}
+                <div className="w-10 h-10 border border-[#d42b2b]/20 group-hover:border-[#d42b2b]/60 group-hover:bg-[#d42b2b]/08 flex items-center justify-center mb-6 transition-all duration-300">
+                  <Icon size={18} className="text-[#d42b2b]" />
                 </div>
-                <h3 className="font-display text-2xl tracking-widest text-white mb-3">
+
+                <h3 className="font-display font-600 text-white mb-3 group-hover:text-[#d42b2b] transition-colors"
+                  style={{ fontSize: "1.4rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>
                   {p.title}
                 </h3>
-                <p className="text-[#a0a0a0] text-sm leading-relaxed">
+                <p className="text-white/40 text-[0.82rem] leading-relaxed font-light">
                   {p.desc}
                 </p>
 
-                {/* bottom accent */}
-                <div className="mt-6 w-0 h-[2px] bg-[#e01c1c] group-hover:w-full transition-all duration-500" />
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-[#d42b2b] group-hover:w-full transition-all duration-500" />
               </div>
             );
           })}
         </div>
 
         {/* Stats row */}
-        <div className="mt-16 grid grid-cols-3 border border-[#1e1e1e] divide-x divide-[#1e1e1e]">
+        <div className="grid grid-cols-3 bg-[#0e0e0e] border border-white/[0.04] mt-8">
           {[
-            { value: "1000+", label: "PIÈCES EN STOCK" },
-            { value: "100%", label: "SATISFACTION CLIENT" },
-            { value: "24H", label: "DISPONIBILITÉ RAPIDE" },
-          ].map((stat) => (
-            <div key={stat.label} className="py-8 text-center">
-              <div className="font-display text-4xl sm:text-5xl text-[#e01c1c] mb-1">
-                {stat.value}
+            { v: "1 000+", l: "Pièces en stock" },
+            { v: "100%", l: "Contrôle qualité" },
+            { v: "24H", l: "Disponibilité rapide" },
+          ].map((s) => (
+            <div
+              key={s.l}
+              className="why-stat opacity-0 py-8 px-6 text-center border-r border-white/[0.04] last:border-r-0 group hover:bg-[#161616] transition-colors duration-200"
+            >
+              <div className="font-display font-700 text-[#d42b2b] mb-1.5"
+                style={{ fontSize: "clamp(1.8rem,4vw,3rem)", lineHeight: 1 }}>
+                {s.v}
               </div>
-              <div className="font-display text-xs tracking-[0.2em] text-[#555555]">
-                {stat.label}
+              <div className="eyebrow text-white/25" style={{ fontSize: "0.6rem" }}>
+                {s.l}
               </div>
             </div>
           ))}

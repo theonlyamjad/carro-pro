@@ -3,132 +3,128 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const categories = [
   {
-    label: "PARE-CHOC",
-    icon: "🚗",
-    desc: "Avant & arrière, toutes marques",
-    count: "200+ références",
+    id: "01",
+    label: "Pare-choc",
+    sub: "Avant & arrière",
+    count: "200+",
+    accent: "bg-[#d42b2b]",
   },
   {
-    label: "PHARES",
-    icon: "💡",
-    desc: "Optiques, feux, projecteurs",
-    count: "300+ références",
+    id: "02",
+    label: "Phares",
+    sub: "Optiques & projecteurs",
+    count: "300+",
+    accent: "bg-white",
   },
   {
-    label: "AILES",
-    icon: "🔧",
-    desc: "Ailes avant & arrière",
-    count: "150+ références",
+    id: "03",
+    label: "Ailes",
+    sub: "Avant & arrière",
+    count: "150+",
+    accent: "bg-[#d42b2b]",
   },
   {
-    label: "CAPOT",
-    icon: "⚙️",
-    desc: "Capots moteur, coffre",
-    count: "120+ références",
+    id: "04",
+    label: "Capot",
+    sub: "Moteur & coffre",
+    count: "120+",
+    accent: "bg-white",
   },
   {
-    label: "ACCESSOIRES",
-    icon: "🔩",
-    desc: "Rétros, poignées, garnitures",
-    count: "500+ références",
+    id: "05",
+    label: "Accessoires",
+    sub: "Rétros, garnitures...",
+    count: "500+",
+    accent: "bg-[#d42b2b]",
   },
 ];
 
 export default function Categories() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const sRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".category-card",
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 80%",
-          },
-        }
+      gsap.fromTo(".cat-header",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: sRef.current, start: "top 80%" } }
       );
-
-      gsap.fromTo(
-        ".section-title",
-        { opacity: 0, x: -40 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%",
-          },
-        }
+      gsap.fromTo(".cat-row",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power3.out",
+          scrollTrigger: { trigger: ".cat-row", start: "top 85%" } }
       );
-    }, sectionRef);
-
+    }, sRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-[#0d0d0d] relative overflow-hidden">
-      {/* top border accent */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#e01c1c]" />
+    <section ref={sRef} className="relative bg-[#0e0e0e] overflow-hidden" style={{ padding: "clamp(5rem,10vw,9rem) 0" }}>
+      {/* Left accent line */}
+      <div className="absolute left-0 top-0 bottom-0 w-[1.5px] bg-gradient-to-b from-transparent via-[#d42b2b] to-transparent opacity-50" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="container-wide">
         {/* Header */}
-        <div className="mb-14">
-          <div className="section-title flex items-center gap-4 mb-3">
-            <div className="w-10 h-[3px] bg-[#e01c1c]" />
-            <span className="font-display text-sm tracking-[0.3em] text-[#e01c1c]">
-              NOS CATÉGORIES
-            </span>
+        <div className="cat-header flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 opacity-0">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="rule-red" />
+              <span className="eyebrow">Ce que nous proposons</span>
+            </div>
+            <h2 className="font-display font-700 text-white" style={{ fontSize: "clamp(2.5rem,6vw,5rem)", lineHeight: 0.9, textTransform: "uppercase" }}>
+              Nos<br />
+              <span className="text-[#d42b2b]">Catégories</span>
+            </h2>
           </div>
-          <h2 className="section-title font-display text-5xl sm:text-6xl text-white">
-            TOUT CE QU'IL
-            <br />
-            <span className="text-[#e01c1c]">VOUS FAUT</span>
-          </h2>
+          <p className="text-white/40 text-sm max-w-xs leading-relaxed font-light">
+            Plus de 1 000 références disponibles pour toutes marques et modèles.
+          </p>
         </div>
 
-        {/* Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
-        >
+        {/* Category list — horizontal rows */}
+        <div className="flex flex-col border-t border-white/[0.06]">
           {categories.map((cat) => (
             <div
-              key={cat.label}
-              className="category-card group relative bg-black border border-[#1e1e1e] hover:border-[#e01c1c] p-6 cursor-pointer transition-all duration-300 overflow-hidden opacity-0"
+              key={cat.id}
+              className="cat-row group opacity-0 flex items-center justify-between py-5 border-b border-white/[0.06] cursor-pointer hover:pl-3 transition-all duration-300"
             >
-              {/* hover bg */}
-              <div className="absolute inset-0 bg-[#e01c1c]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Left: number + name */}
+              <div className="flex items-center gap-6 sm:gap-10">
+                <span className="font-display text-xs text-white/20 tracking-widest w-6">{cat.id}</span>
+                <div>
+                  <h3 className="font-display font-600 text-white group-hover:text-[#d42b2b] transition-colors duration-200"
+                    style={{ fontSize: "clamp(1.3rem, 3vw, 2.2rem)", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+                    {cat.label}
+                  </h3>
+                  <p className="text-white/30 text-xs tracking-widest mt-0.5">{cat.sub}</p>
+                </div>
+              </div>
 
-              {/* Top red bar */}
-              <div className="absolute top-0 left-0 w-0 h-[2px] bg-[#e01c1c] group-hover:w-full transition-all duration-300" />
-
-              <div className="relative z-10">
-                <span className="text-3xl mb-4 block">{cat.icon}</span>
-                <h3 className="font-display text-lg tracking-widest text-white mb-1 group-hover:text-[#e01c1c] transition-colors">
-                  {cat.label}
-                </h3>
-                <p className="text-[#555555] text-xs mb-3">{cat.desc}</p>
-                <span className="font-display text-xs tracking-widest text-[#e01c1c]/60 group-hover:text-[#e01c1c] transition-colors">
-                  {cat.count}
+              {/* Right: count + arrow */}
+              <div className="flex items-center gap-4 sm:gap-8">
+                <span className="font-display text-sm text-white/20 group-hover:text-white/60 transition-colors hidden sm:block">
+                  {cat.count} réf.
                 </span>
+                <div className="w-8 h-8 border border-white/10 group-hover:border-[#d42b2b] group-hover:bg-[#d42b2b]/10 flex items-center justify-center transition-all duration-300">
+                  <ArrowUpRight size={14} className="text-white/30 group-hover:text-[#d42b2b] transition-colors" />
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-10 flex justify-end">
+          <a href="/catalog" className="btn-ghost text-xs">
+            Voir tout le catalogue
+            <ArrowUpRight size={13} />
+          </a>
         </div>
       </div>
     </section>
