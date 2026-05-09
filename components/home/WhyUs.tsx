@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ShieldCheck, BadgeDollarSign, Zap, Headphones } from "lucide-react";
+import { ShieldCheck, Zap, Handshake ,Wallet} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,26 +11,26 @@ const pillars = [
   {
     num: "01",
     icon: ShieldCheck,
-    title: "Qualité",
-    desc: "Chaque pièce est inspectée et testée avant mise en vente. Vous recevez uniquement des pièces en état de marche.",
+    title: "Vérification",
+    desc: "Chaque pièce subit un protocole de test rigoureux. Si ce n'est pas parfait, ce n'est pas en stock.",
   },
   {
     num: "02",
-    icon: BadgeDollarSign,
-    title: "Prix",
-    desc: "Des tarifs compétitifs imbattables sur le marché local. Économisez sur vos réparations sans compromis.",
+    icon: Wallet,
+    title: "Optimisation",
+    desc: "Économisez jusqu'à 60% par rapport au neuf sans sacrifier l'intégrité structurelle de votre châssis.",
   },
   {
     num: "03",
     icon: Zap,
-    title: "Rapidité",
-    desc: "Stock constamment renouvelé. Votre pièce disponible rapidement pour ne pas immobiliser votre véhicule.",
+    title: "Logistique",
+    desc: "Système de gestion de stock en temps réel. Disponibilité immédiate pour minimiser l'immobilisation.",
   },
   {
     num: "04",
-    icon: Headphones,
-    title: "Conseils",
-    desc: "Notre équipe vous guide vers la bonne pièce pour votre véhicule. Un accompagnement personnalisé du début à la fin.",
+    icon: Handshake,
+    title: "Assistance",
+    desc: "Conseils techniques d'experts pour identifier la référence exacte compatible avec votre VIN.",
   },
 ];
 
@@ -40,100 +40,102 @@ export default function WhyUs() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(".why-header",
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+        { opacity: 0, x: -50 },
+        { opacity: 1, x: 0, duration: 1.2, ease: "expo.out",
           scrollTrigger: { trigger: sRef.current, start: "top 80%" } }
       );
       gsap.fromTo(".why-card",
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
+        { opacity: 0, scale: 0.9, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power4.out",
           scrollTrigger: { trigger: ".why-card", start: "top 85%" } }
-      );
-      gsap.fromTo(".why-stat",
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.5)",
-          scrollTrigger: { trigger: ".why-stat", start: "top 85%" } }
       );
     }, sRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sRef} className="relative bg-black overflow-hidden" style={{ padding: "clamp(5rem,10vw,9rem) 0" }}>
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-[#d42b2b] opacity-[0.04] blur-[120px] pointer-events-none" />
+    <section ref={sRef} className="relative bg-[#020202] py-32 overflow-hidden">
+      
+      {/* ── TECHNICAL DECOR ── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#cc1f1f]/30 to-transparent" />
+      <div className="absolute right-[-10%] top-[20%] w-[600px] h-[600px] rounded-full bg-[#cc1f1f]/5 blur-[150px] pointer-events-none" />
 
-      <div className="container-wide">
-        {/* Header */}
-        <div className="why-header opacity-0 text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="rule-red" />
-            <span className="eyebrow">Pourquoi nous choisir</span>
-            <span className="rule-red" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* HEADER: Left Aligned for Magazine Look */}
+        <div className="why-header opacity-0 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="h-[1px] w-12 bg-[#cc1f1f]" />
+              <span className="font-display text-[0.65rem] tracking-[0.5em] uppercase text-[#cc1f1f] font-900">Protocole CarroPro</span>
+            </div>
+            <h2 className="font-display font-900 text-6xl lg:text-8xl text-white tracking-tighter uppercase leading-[0.85]">
+              L'Exigence <br /> 
+              <span className="text-[#cc1f1f] italic">Absolue.</span>
+            </h2>
           </div>
-          <h2 className="font-display font-700 text-white mb-4"
-            style={{ fontSize: "clamp(2.5rem,6vw,5rem)", textTransform: "uppercase", lineHeight: 0.9 }}>
-            Qualité •{" "}
-            <span className="text-[#d42b2b]">Prix</span>{" "}
-            • Service
-          </h2>
-          <p className="text-white/40 text-sm max-w-md mx-auto font-light leading-relaxed">
-            Votre satisfaction est notre priorité. On a tout ce qu'il vous faut.
-          </p>
+          <div className="border-l border-white/10 pl-8 pb-2">
+            <p className="text-white/40 text-sm lg:text-base font-light leading-relaxed max-w-sm">
+              Plus qu'un revendeur, nous sommes les gardiens de la qualité automobile à Agadir. 
+              Chaque composant est une pièce d'ingénierie validée.
+            </p>
+          </div>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.04] mb-px">
+        {/* CARDS: Blueprint Style */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((p) => {
             const Icon = p.icon;
             return (
               <div
                 key={p.num}
-                className="why-card opacity-0 bg-[#0e0e0e] p-8 group hover:bg-[#161616] transition-colors duration-300 relative overflow-hidden"
+                className="why-card opacity-0 bg-[#080808] border border-white/[0.05] p-10 group hover:border-[#cc1f1f]/40 transition-all duration-500 relative"
               >
-                {/* Number watermark */}
-                <span className="absolute top-4 right-5 font-display font-700 text-6xl text-white/[0.03] select-none pointer-events-none leading-none">
-                  {p.num}
-                </span>
-
-                {/* Icon */}
-                <div className="w-10 h-10 border border-[#d42b2b]/20 group-hover:border-[#d42b2b]/60 group-hover:bg-[#d42b2b]/08 flex items-center justify-center mb-6 transition-all duration-300">
-                  <Icon size={18} className="text-[#d42b2b]" />
+                {/* ID Tag */}
+                <div className="flex justify-between items-start mb-12">
+                  <div className="w-12 h-12 bg-white/[0.02] border border-white/5 flex items-center justify-center group-hover:bg-[#cc1f1f]/10 group-hover:border-[#cc1f1f]/50 transition-all duration-500">
+                    <Icon size={20} className="text-white/20 group-hover:text-[#cc1f1f] transition-colors" />
+                  </div>
+                  <span className="font-display text-[0.7rem] font-900 text-white/10 group-hover:text-[#cc1f1f]/20 transition-colors">
+                    REF_{p.num}
+                  </span>
                 </div>
 
-                <h3 className="font-display font-600 text-white mb-3 group-hover:text-[#d42b2b] transition-colors"
-                  style={{ fontSize: "1.4rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                <h3 className="font-display font-800 text-xl text-white mb-4 uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-500">
                   {p.title}
                 </h3>
-                <p className="text-white/40 text-[0.82rem] leading-relaxed font-light">
+                <p className="text-white/30 text-[0.85rem] leading-relaxed font-light group-hover:text-white/50 transition-colors">
                   {p.desc}
                 </p>
 
-                {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-[#d42b2b] group-hover:w-full transition-all duration-500" />
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none overflow-hidden">
+                   <div className="absolute top-[-15px] right-[-15px] w-10 h-10 bg-white/5 rotate-45 group-hover:bg-[#cc1f1f]/20 transition-colors" />
+                </div>
               </div>
             );
           })}
         </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-3 bg-[#0e0e0e] border border-white/[0.04] mt-8">
+        {/* STATS: Industrial Dashboard */}
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 border border-white/5 bg-white/[0.01] backdrop-blur-sm">
           {[
-            { v: "1 000+", l: "Pièces en stock" },
-            { v: "100%", l: "Contrôle qualité" },
-            { v: "24H", l: "Disponibilité rapide" },
-          ].map((s) => (
+            { v: "1000+", l: "Unités en Stock" },
+            { v: "0.0mm", l: "Tolérance Ajustement" },
+            { v: "24H", l: "Réponse Logistique" },
+          ].map((s, i) => (
             <div
               key={s.l}
-              className="why-stat opacity-0 py-8 px-6 text-center border-r border-white/[0.04] last:border-r-0 group hover:bg-[#161616] transition-colors duration-200"
+              className={`py-12 px-10 text-center relative group overflow-hidden ${i !== 2 ? 'border-r border-white/5' : ''}`}
             >
-              <div className="font-display font-700 text-[#d42b2b] mb-1.5"
-                style={{ fontSize: "clamp(1.8rem,4vw,3rem)", lineHeight: 1 }}>
+              <div className="font-display font-900 text-white text-5xl lg:text-6xl tracking-tighter mb-2 group-hover:text-[#cc1f1f] transition-colors duration-500">
                 {s.v}
               </div>
-              <div className="eyebrow text-white/25" style={{ fontSize: "0.6rem" }}>
+              <div className="text-[0.6rem] tracking-[0.4em] text-white/20 uppercase font-black">
                 {s.l}
               </div>
+              {/* Animated background bar */}
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#cc1f1f] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </div>
           ))}
         </div>

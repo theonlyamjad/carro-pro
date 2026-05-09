@@ -5,149 +5,110 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
-const NAV = [
-  { href: "/",        label: "Accueil",    n: "01" },
-  { href: "/catalog", label: "Catalogue",  n: "02" },
-  { href: "/about",   label: "À propos",   n: "03" },
-  { href: "/contact", label: "Contact",    n: "04" },
-];
-
 export default function Navbar() {
-  const [solid, setSolid]   = useState(false);
-  const [open, setOpen]     = useState(false);
-  const pathname            = usePathname();
-  const barRef              = useRef<HTMLElement>(null);
+  const [solid, setSolid] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const barRef = useRef<HTMLElement>(null);
 
-  /* entry animation */
   useEffect(() => {
     gsap.fromTo(barRef.current,
-      { yPercent: -100 },
-      { yPercent: 0, duration: 0.9, ease: "power4.out", delay: 0.1 }
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.5, ease: "expo.out" }
     );
-  }, []);
-
-  /* scroll solidify */
-  useEffect(() => {
-    const fn = () => setSolid(window.scrollY > 60);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    
+    const handleScroll = () => setSolid(window.scrollY > 40);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
       <nav
         ref={barRef}
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          solid ? "bg-black/95 backdrop-blur-xl" : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
+          solid 
+            ? "py-3 bg-black/40 backdrop-blur-xl border-b border-white/5" 
+            : "py-6 bg-transparent border-b border-transparent"
         }`}
       >
-        {/* Progress-bar style top line */}
-        <div className={`absolute top-0 left-0 right-0 h-[1.5px] transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`}
-          style={{ background: "linear-gradient(90deg, transparent, #cc1f1f 40%, #cc1f1f 60%, transparent)" }}
-        />
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
 
-        <div className="wrap flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-baseline gap-0 group select-none">
-            <span className="f-display font-800 italic text-[1.55rem] tracking-tight text-white uppercase">
-              Carro
-            </span>
-            <span className="f-display font-800 italic text-[1.55rem] tracking-tight text-[#cc1f1f] uppercase">
-              Pro
-            </span>
-            {/* small superscript dot */}
-            <sup className="ml-0.5 w-[5px] h-[5px] rounded-full bg-[#cc1f1f] inline-block mb-1 opacity-80" />
+          {/* LOGO - Sharp & Italic */}
+          <Link href="/" className="flex items-center gap-1 group">
+            <div className="relative">
+              <span className="font-display font-900 italic text-2xl lg:text-3xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
+                CARRO<span className="text-[#cc1f1f] drop-shadow-[0_0_10px_rgba(204,31,31,0.6)]">PRO</span>
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop */}
-          <ul className="hidden md:flex items-center">
-            {NAV.map((l) => {
-              const active = pathname === l.href;
+          {/* DESKTOP NAV - Magazine Style */}
+          <ul className="hidden md:flex items-center gap-2">
+            {[
+              { href: "/", label: "Accueil" },
+              { href: "/catalog", label: "Catalogue" },
+              { href: "/about", label: "L'Atelier" }, // Changed to "The Workshop" for more vibe
+              { href: "/contact", label: "Contact" }
+            ].map((link) => {
+              const active = pathname === link.href;
               return (
-                <li key={l.href}>
+                <li key={link.href} className="relative overflow-hidden group">
                   <Link
-                    href={l.href}
-                    className={`relative group flex items-center gap-1.5 px-5 py-1.5 transition-colors duration-150 ${
-                      active ? "text-white" : "text-white/40 hover:text-white"
+                    href={link.href}
+                    className={`px-6 py-2 font-display text-[0.65rem] tracking-[0.3em] uppercase transition-all duration-300 flex items-center gap-2 ${
+                      active ? "text-white font-900" : "text-white/30 hover:text-white"
                     }`}
                   >
-                    <span className="f-display font-600 text-[0.55rem] tracking-widest text-[#cc1f1f] opacity-50 group-hover:opacity-100 transition-opacity">
-                      {l.n}
+                    <span className={`text-[#cc1f1f] text-[0.5rem] transition-opacity duration-300 ${active ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                      //
                     </span>
-                    <span className="f-display font-600 text-[0.78rem] tracking-[0.14em] uppercase">
-                      {l.label}
-                    </span>
-                    {active && (
-                      <span className="absolute bottom-[-1px] left-5 right-5 h-[1.5px] bg-[#cc1f1f]" />
-                    )}
+                    {link.label}
                   </Link>
+                  {/* Subtle hover bar */}
+                  {active && (
+                    <div className="absolute bottom-0 left-6 right-6 h-[1px] bg-[#cc1f1f] shadow-[0_0_8px_#cc1f1f]" />
+                  )}
                 </li>
               );
             })}
           </ul>
 
-          {/* Desktop CTA */}
-          <a
-            href="tel:0635620605"
-            className="hidden md:flex items-center gap-2 text-white/50 hover:text-white transition-colors group"
-          >
-            {/* Blinking status dot */}
-            <span className="w-1.5 h-1.5 rounded-full bg-[#cc1f1f] animate-pulse" />
-            <span className="f-display font-600 text-[0.72rem] tracking-[0.16em] uppercase">
-              0635 620 605
-            </span>
-          </a>
-
-          {/* Mobile toggle */}
+          {/* MOBILE TOGGLE - Minimalist */}
           <button
             onClick={() => setOpen(!open)}
-            aria-label="Menu"
-            className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9"
+            className="md:hidden group p-2"
           >
-            <span className={`h-[1.5px] bg-white transition-all duration-200 origin-left ${open ? "w-6 rotate-[38deg] translate-y-[0px]" : "w-6"}`} />
-            <span className={`h-[1.5px] bg-[#cc1f1f] transition-all duration-200 ${open ? "opacity-0 w-3" : "w-4"}`} />
-            <span className={`h-[1.5px] bg-white transition-all duration-200 origin-left ${open ? "w-6 -rotate-[38deg]" : "w-6"}`} />
+            <div className="flex flex-col gap-1.5 items-end">
+              <span className={`h-[1px] bg-white transition-all duration-500 ${open ? "w-6 rotate-45 translate-y-[4px]" : "w-8"}`} />
+              <span className={`h-[1px] bg-[#cc1f1f] transition-all duration-500 ${open ? "opacity-0" : "w-5"}`} />
+              <span className={`h-[1px] bg-white transition-all duration-500 ${open ? "w-6 -rotate-45 -translate-y-[4px]" : "w-6"}`} />
+            </div>
           </button>
         </div>
       </nav>
 
-      {/* Mobile drawer */}
-      <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(16px)" }}
-        onClick={() => setOpen(false)}
-      />
-      <div
-        className={`fixed top-0 right-0 h-full w-[280px] z-50 md:hidden flex flex-col bg-[#080808] border-l border-white/[0.05] transition-transform duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between h-16 px-6 border-b border-white/[0.05]">
-          <div className="flex items-baseline gap-0">
-            <span className="f-display font-800 italic text-white text-xl uppercase">Carro</span>
-            <span className="f-display font-800 italic text-[#cc1f1f] text-xl uppercase">Pro</span>
-          </div>
-          <button onClick={() => setOpen(false)} className="text-white/30 hover:text-white text-lg leading-none">✕</button>
-        </div>
-
-        <nav className="flex flex-col flex-1 px-6 py-10 gap-0.5">
-          {NAV.map((l) => (
+      {/* MOBILE MENU - Full Screen Blur */}
+      <div className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-[40px] transition-all duration-700 flex flex-col justify-center items-center ${open ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="flex flex-col items-center gap-12">
+          {["Accueil", "Catalogue", "L'Atelier", "Contact"].map((label, i) => (
             <Link
-              key={l.href}
-              href={l.href}
+              key={label}
+              href={label === "Accueil" ? "/" : `/${label.toLowerCase().replace(" ", "-")}`}
               onClick={() => setOpen(false)}
-              className="flex items-center gap-4 py-4 border-b border-white/[0.04] group"
+              className="group relative font-display text-4xl font-900 tracking-[0.4em] uppercase text-white/20 hover:text-white transition-all"
             >
-              <span className="f-display text-[0.55rem] tracking-widest text-[#cc1f1f]/50 group-hover:text-[#cc1f1f] transition-colors">{l.n}</span>
-              <span className="f-display font-700 text-xl uppercase tracking-wide text-white/50 group-hover:text-white transition-colors">{l.label}</span>
+              <span className="absolute -left-12 top-1/2 -translate-y-1/2 text-[#cc1f1f] text-sm opacity-0 group-hover:opacity-100 transition-all tracking-normal">
+                0{i + 1}
+              </span>
+              {label}
             </Link>
           ))}
-        </nav>
-
-        <div className="px-6 pb-8">
-          <a href="tel:0635620605" className="btn btn-red w-full justify-center">
-            0635 620 605
-          </a>
+        </div>
+        
+        {/* Mobile Footer Deco */}
+        <div className="absolute bottom-10 font-display text-[0.6rem] tracking-[1em] text-white/10 uppercase">
+          CarroPro Agadir Precision
         </div>
       </div>
     </>
