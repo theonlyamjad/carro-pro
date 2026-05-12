@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Search, MessageCircle } from "lucide-react";
 
-// Number to WhatsApp
-const WHATSAPP_NUMBER = "212635620605";
+const WHATSAPP_NUMBER = "+212635620605";
 
 const categories = [
   "Tous",
@@ -16,18 +15,9 @@ const categories = [
 ];
 
 const demoParts = [
-  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", state: "Bon état", cat: "Pare-choc", ref: "CP-PC-01" },
-  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", state: "Très bon état", cat: "Phares", ref: "CP-PH-02" },
-  { id: 3, name: "Aile Avant Droite", brand: "Renault Clio 4", year: "2013-2019", state: "Bon état", cat: "Ailes", ref: "CP-AI-03" },
-  { id: 4, name: "Capot Moteur", brand: "Volkswagen Golf 6", year: "2009-2012", state: "Excellent", cat: "Capot", ref: "CP-CT-04" },
-  { id: 5, name: "Pare-choc Arrière", brand: "Toyota Yaris", year: "2016-2020", state: "Bon état", cat: "Pare-choc", ref: "CP-PC-05" },
-  { id: 6, name: "Phare Droit + Gauche", brand: "Hyundai i10", year: "2014-2018", state: "Bon état", cat: "Phares", ref: "CP-PH-06" },
-  { id: 7, name: "Aile Arrière Gauche", brand: "Citroën C3", year: "2017-2022", state: "Très bon état", cat: "Ailes", ref: "CP-AI-07" },
-  { id: 8, name: "Rétroviseur Droit", brand: "Ford Focus", year: "2011-2015", state: "Bon état", cat: "Accessoires", ref: "CP-AC-08" },
-  { id: 9, name: "Capot Coffre", brand: "Kia Picanto", year: "2018-2022", state: "Excellent", cat: "Capot", ref: "CP-CT-09" },
-  { id: 10, name: "Pare-choc Avant", brand: "Mercedes Classe A", year: "2013-2018", state: "Très bon état", cat: "Pare-choc", ref: "CP-PC-10" },
-  { id: 11, name: "Phare Full LED Gauche", brand: "BMW Série 3", year: "2015-2019", state: "Bon état", cat: "Phares", ref: "CP-PH-11" },
-  { id: 12, name: "Poignée Porte", brand: "Fiat Punto", year: "2012-2016", state: "Bon état", cat: "Accessoires", ref: "CP-AC-12" },
+  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/pc-dacia.png" },
+  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018",  cat: "Phares", ref: "CP-PH-02", img: "/parts/ph-208.png" },
+  // ... (Add processed image paths for all other parts)
 ];
 
 
@@ -35,7 +25,6 @@ export default function CatalogClient() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("Tous");
 
-  // Filtering Logic
   const filteredParts = demoParts.filter((part) => {
     const matchesSearch = 
       searchTerm === "" || 
@@ -50,7 +39,6 @@ export default function CatalogClient() {
     return matchesSearch && matchesCategory;
   });
 
-  // Pre-formatted WhatsApp Message
   const getWhatsAppLink = (partName: string, partRef: string) => {
     const message = `Bonjour CarroPro, je suis intéressé par la pièce : ${partName} (Réf: ${partRef}). Est-elle disponible ?`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -59,10 +47,10 @@ export default function CatalogClient() {
   return (
     <div className="min-h-screen bg-[#020202] pt-32 pb-24 overflow-hidden relative">
       
-      {/* ── DESIGN BACKGROUND : GRILLE ET MAILLAGE ── */}
+      {/* BACKGROUND MESH */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
 
-      {/* ── EN-TÊTE DE PAGE (Style Magazine Technique) ── */}
+      {/* HEADER */}
       <div className="max-w-7xl mx-auto px-6 relative z-10 mb-20 lg:mb-32">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-3xl">
@@ -79,7 +67,7 @@ export default function CatalogClient() {
           </div>
           <div className="lg:mb-3 max-w-xs border-l border-white/10 pl-6">
             <p className="text-white/40 text-xs lg:text-sm leading-relaxed font-light uppercase tracking-widest">
-              Pièces d'origine vérifiées OEM <br />
+              Base de données en temps réel. Pièces d'origine vérifiées OEM <br />
               pour préserver l'ajustement de votre châssis.
             </p>
           </div>
@@ -88,10 +76,9 @@ export default function CatalogClient() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        {/* ── BARRE DE FILTRES : Le Panneau de Contrôle Technique ── */}
+        {/* FILTERS BAR */}
         <div className="mb-16 border border-white/5 bg-[#050505] p-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-0 items-center">
           
-          {/* Recherche (Style Commande Système) */}
           <div className="md:col-span-4 relative md:border-r border-white/5 pr-6">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#cc1f1f]" />
             <input
@@ -103,7 +90,6 @@ export default function CatalogClient() {
             />
           </div>
 
-          {/* Sélecteur de Catégories (Sélecteur Matrice) */}
           <div className="md:col-span-8 flex gap-2 flex-wrap md:pl-6 justify-center md:justify-start">
             {categories.map((cat) => (
               <button
@@ -124,18 +110,16 @@ export default function CatalogClient() {
           </div>
         </div>
 
-        {/* ── GRILLE DE PRODUITS : Composants Haute Performance ── */}
+        {/* ── GRILLE DE PRODUITS : Component Data Cards ── */}
         {filteredParts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredParts.map((part) => (
               <div
                 key={part.id}
-                className="group bg-[#080808] border border-white/[0.05] p-8 flex flex-col justify-between min-h-[360px] transition-all duration-700 overflow-hidden relative"
+                className="group bg-[#080808] border border-white/[0.05] p-8 flex flex-col justify-between min-h-[460px] transition-all duration-700 overflow-hidden relative cursor-pointer"
               >
-                {/* Effet Scan Lumineux au Survol */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#cc1f1f]/10 via-transparent to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-700 pointer-events-none" />
-
-                {/* ID Tag & Référence (Style Étiquette d'Usinage) */}
+                
+                {/* ID & Ref */}
                 <div className="flex items-center justify-between mb-8 relative z-10">
                   <span className="font-display text-[0.6rem] font-900 tracking-[0.3em] text-[#cc1f1f]">
                     MOD. {part.cat.substring(0, 2).toUpperCase()}
@@ -144,9 +128,31 @@ export default function CatalogClient() {
                     {part.ref}
                   </span>
                 </div>
+                <div className="aspect-[4/3] bg-gradient-to-b from-[#0a0a0a] to-[#020202] flex flex-col items-center justify-center relative p-6 border border-white/[0.03] overflow-hidden mb-8 group-hover:border-[#cc1f1f]/20 transition-colors">
+                  
+                  {/* Decorative Mesh */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#222_1px,transparent_1px)] bg-[size:1.5rem] opacity-[0.03]" />
+                  
+                  {/* Processed (Greyscale/Contrast) Real Photo */}
+                  <div className="w-28 h-28 rounded-full border border-white/[0.03] group-hover:border-[#cc1f1f]/10 group-hover:scale-105 transition-transform duration-700 flex items-center justify-center relative overflow-hidden shadow-[inner_0_0_10px_#000]">
+                    {part.img ? (
+                      <img 
+                        src={part.img} 
+                        alt={part.name} 
+                        className="w-auto h-auto max-w-[85%] max-h-[85%] object-contain relative z-10 mix-blend-screen" 
+                        // The 'mix-blend-screen' is crucial if the processed part has a very deep black background
+                      />
+                    ) : (
+                      // Fallback placeholder
+                      <span className="text-white/10 text-xs font-display">NO DATA</span>
+                    )}
+                    {/* The subtle glow behind the part */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cc1f1f]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
 
-                {/* Informations du Composant */}
-                <div className="relative z-10 mb-10 group-hover:opacity-10 transition-opacity duration-300">
+                {/* Component Info */}
+                <div className="relative z-10 mb-10 group-hover:opacity-5 transition-opacity duration-300">
                   <h3 className="font-display font-800 text-3xl text-white uppercase mb-2 tracking-tighter">
                     {part.name}
                   </h3>
@@ -161,8 +167,8 @@ export default function CatalogClient() {
                   </div>
                 </div>
 
-                {/* WhatsApp Button Overlay - Revealed on Hover */}
-                <div className="absolute inset-0 flex items-center justify-center p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-20">
+                {/* WhatsApp Button Overlay */}
+                <div className="absolute inset-0 flex items-end justify-center p-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-20">
                   <a 
                     href={getWhatsAppLink(part.name, part.ref)}
                     target="_blank"
@@ -174,7 +180,7 @@ export default function CatalogClient() {
                   </a>
                 </div>
 
-                {/* Numéro ID Caché en Arrière-plan (Effet Blueprint) */}
+                {/* Background ID Watermark */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[8rem] font-900 text-white/[0.02] pointer-events-none transition-colors duration-500">
                   {part.id}
                 </div>
@@ -188,9 +194,8 @@ export default function CatalogClient() {
           </div>
         )}
 
-        {/* ── CTA DE FIN : Requête Technique ── */}
+        {/* BOTTOM CTA */}
         <div className="mt-24 bg-[#080808] border border-white/5 p-12 text-center relative overflow-hidden">
-          {/* Décoration Blueprint Diagonal Stripes */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
              style={{ backgroundImage: "repeating-linear-gradient(45deg, #fa0000 0, #fa0000 1px, transparent 0, transparent 50%)", backgroundSize: "20px 20px" }}/>
 
@@ -201,9 +206,7 @@ export default function CatalogClient() {
             href={`tel:${WHATSAPP_NUMBER}`}
             className="group relative inline-flex items-center gap-3 bg-[#cc1f1f] text-white font-display font-900 text-[0.7rem] uppercase tracking-[0.25em] px-12 py-5 transition-all duration-500 overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-3">
-               Liaison d'Urgence
-            </span>
+            <span className="relative z-10 flex items-center gap-3">Liaison d'Urgence</span>
             <div className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-in-out" />
             <style jsx>{`.group:hover span { color: #000; }`}</style>
           </a>
