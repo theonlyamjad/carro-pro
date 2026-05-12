@@ -49,7 +49,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img 
           ref={carRef}
-          src="/Bugatti-Chiron(Side).png" 
+          src="/bugatti-chiron.png" 
           alt="Bugatti Chiron CarroPro" 
           className="bg-car absolute right-[-5%] top-1/2 -translate-y-1/2 w-full lg:w-[85%] h-auto object-contain opacity-40 "
         />
