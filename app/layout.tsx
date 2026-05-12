@@ -5,6 +5,7 @@ import TransitionProvider from "@/components/layout/TransitionProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next"
 
 
 const barlowCondensed = Barlow_Condensed({
@@ -178,6 +179,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <TransitionProvider>{children}</TransitionProvider>
           </main>
         <Footer />
+        <Analytics/>
       </body>
     </html>
   );
