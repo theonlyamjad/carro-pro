@@ -4,8 +4,8 @@ import { ArrowLeft, AlertTriangle } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#020202] flex items-center justify-center p-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[20rem] font-900 text-white/[0.02] pointer-events-none">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[20rem] font-900 text-white/2 pointer-events-none">
         404
       </div>
 

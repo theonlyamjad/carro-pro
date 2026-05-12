@@ -44,14 +44,14 @@ export default function CatalogClient() {
 
   return (
     <div className="min-h-screen bg-[#020202] pt-24 md:pt-32 pb-24 overflow-hidden relative">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20 pointer-events-none" />
 
       {/* HEADER - Adjusted padding for mobile */}
       <div className="max-w-7xl mx-auto px-6 relative z-10 mb-12 lg:mb-32">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-4 md:mb-6">
-              <span className="h-[2px] w-12 bg-[#cc1f1f] shadow-[0_0_10px_#cc1f1f]" />
+              <span className="h-0.5 w-12 bg-[#cc1f1f] shadow-[0_0_10px_#cc1f1f]" />
               <span className="font-display text-[0.6rem] md:text-[0.65rem] tracking-[0.5em] uppercase text-[#cc1f1f] font-900">
                 Index Techniques
               </span>
@@ -65,8 +65,6 @@ export default function CatalogClient() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* FILTERS BAR - Stacked on mobile */}
         <div className="mb-12 border border-white/5 bg-[#050505] p-4 md:p-6 flex flex-col gap-6">
           <div className="relative w-full">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#cc1f1f]" />
@@ -75,7 +73,7 @@ export default function CatalogClient() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Réf / Marque / Modèle"
-              className="w-full bg-white/[0.02] border border-white/10 text-white placeholder-white/30 pl-11 pr-4 py-4 font-display text-[0.7rem] uppercase tracking-widest focus:border-[#cc1f1f] focus:outline-none transition-colors"
+              className="w-full bg-white/2 border border-white/10 text-white placeholder-white/30 pl-11 pr-4 py-4 font-display text-[0.7rem] uppercase tracking-widest focus:border-[#cc1f1f] focus:outline-none transition-colors"
             />
           </div>
 
@@ -87,7 +85,7 @@ export default function CatalogClient() {
                 className={`whitespace-nowrap font-display text-[0.6rem] font-800 tracking-[0.25em] px-5 py-3 transition-all uppercase ${
                   cat === activeCategory
                     ? "bg-[#cc1f1f] text-white"
-                    : "bg-white/[0.02] border border-white/5 text-white/40"
+                    : "bg-white/2 border border-white/5 text-white/40"
                 }`}
               >
                 {cat}
@@ -95,15 +93,12 @@ export default function CatalogClient() {
             ))}
           </div>
         </div>
-
-        {/* GRILLE - 1 column on mobile, 2 on tablet, etc. */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {filteredParts.map((part) => (
             <div
               key={part.id}
-              className="group bg-[#080808] border border-white/[0.05] p-6 md:p-8 flex flex-col min-h-[420px] transition-all relative overflow-hidden"
+              className="group bg-[#080808] border border-white/5 p-6 md:p-8 flex flex-col min-h-105 transition-all relative overflow-hidden"
             >
-              {/* Header Info */}
               <div className="flex items-center justify-between mb-6">
                 <span className="font-display text-[0.6rem] font-900 tracking-[0.3em] text-[#cc1f1f]">
                   MOD. {part.cat.substring(0, 2).toUpperCase()}
@@ -112,10 +107,8 @@ export default function CatalogClient() {
                   {part.ref}
                 </span>
               </div>
-
-              {/* Image Box */}
-              <div className="aspect-square bg-gradient-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/[0.03] mb-6">
-                <div className="w-24 h-24 rounded-full border border-white/[0.03] flex items-center justify-center relative overflow-hidden">
+              <div className="aspect-square bg-linear-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/3 mb-6">
+                <div className="w-24 h-24 rounded-full border border-white/3 flex items-center justify-center relative overflow-hidden">
                    {part.img ? (
                       <img src={part.img} alt={part.name} className="w-auto h-auto max-w-[80%] max-h-[80%] object-contain mix-blend-screen" />
                     ) : (
@@ -123,8 +116,6 @@ export default function CatalogClient() {
                     )}
                 </div>
               </div>
-
-              {/* Product Info */}
               <div className="mb-6">
                 <h3 className="font-display font-800 text-2xl text-white uppercase tracking-tighter mb-1">
                   {part.name}
@@ -133,29 +124,23 @@ export default function CatalogClient() {
                   {part.brand} — {part.year}
                 </p>
               </div>
-
-              {/* WhatsApp Button - Mobile Optimized (Always visible on small screens) */}
               <div className="mt-auto">
                 <a 
                   href={getWhatsAppLink(part.name, part.ref)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white/[0.03] hover:bg-[#25D366] border border-white/10 hover:border-[#25D366] text-white font-display font-900 text-[0.65rem] uppercase tracking-[0.2em] py-4 flex items-center justify-center gap-3 transition-all duration-300"
+                  className="w-full bg-white/3 hover:bg-[#25D366] border border-white/10 hover:border-[#25D366] text-white font-display font-900 text-[0.65rem] uppercase tracking-[0.2em] py-4 flex items-center justify-center gap-3 transition-all duration-300"
                 >
                   <MessageCircle size={16} />
                   <span>S'informer</span>
                 </a>
               </div>
-
-              {/* Watermark */}
-              <div className="absolute -bottom-4 -right-4 font-display text-[6rem] font-900 text-white/[0.02] pointer-events-none">
+              <div className="absolute -bottom-4 -right-4 font-display text-[6rem] font-900 text-white/2 pointer-events-none">
                 {part.id}
               </div>
             </div>
           ))}
         </div>
-
-        {/* Empty State */}
         {filteredParts.length === 0 && (
           <div className="text-center py-20 border border-white/5 bg-[#080808]">
              <p className="text-white/40 font-display uppercase tracking-widest text-xs">Index vide</p>

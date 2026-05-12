@@ -55,18 +55,13 @@ export default function WhyUs() {
 
   return (
     <section ref={sRef} className="relative bg-[#020202] py-32 overflow-hidden">
-      
-      {/* ── TECHNICAL DECOR ── */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#cc1f1f]/30 to-transparent" />
-      <div className="absolute right-[-10%] top-[20%] w-[600px] h-[600px] rounded-full bg-[#cc1f1f]/5 blur-[150px] pointer-events-none" />
-
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#cc1f1f]/30 to-transparent" />
+      <div className="absolute right-[-10%] top-[20%] w-150 h-150 rounded-full bg-[#cc1f1f]/5 blur-[150px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* HEADER: Left Aligned for Magazine Look */}
         <div className="why-header opacity-0 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
           <div>
             <div className="flex items-center gap-4 mb-6">
-              <span className="h-[1px] w-12 bg-[#cc1f1f]" />
+              <span className="h-px w-12 bg-[#cc1f1f]" />
               <span className="font-display text-[0.65rem] tracking-[0.5em] uppercase text-[#cc1f1f] font-900">Protocole CarroPro</span>
             </div>
             <h2 className="font-display font-900 text-6xl lg:text-8xl text-white tracking-tighter uppercase leading-[0.85]">
@@ -81,19 +76,16 @@ export default function WhyUs() {
             </p>
           </div>
         </div>
-
-        {/* CARDS: Blueprint Style */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((p) => {
             const Icon = p.icon;
             return (
               <div
                 key={p.num}
-                className="why-card opacity-0 bg-[#080808] border border-white/[0.05] p-10 group hover:border-[#cc1f1f]/40 transition-all duration-500 relative"
+                className="why-card opacity-0 bg-[#080808] border border-white/5 p-10 group hover:border-[#cc1f1f]/40 transition-all duration-500 relative"
               >
-                {/* ID Tag */}
                 <div className="flex justify-between items-start mb-12">
-                  <div className="w-12 h-12 bg-white/[0.02] border border-white/5 flex items-center justify-center group-hover:bg-[#cc1f1f]/10 group-hover:border-[#cc1f1f]/50 transition-all duration-500">
+                  <div className="w-12 h-12 bg-white/2 border border-white/5 flex items-center justify-center group-hover:bg-[#cc1f1f]/10 group-hover:border-[#cc1f1f]/50 transition-all duration-500">
                     <Icon size={20} className="text-white/20 group-hover:text-[#cc1f1f] transition-colors" />
                   </div>
                   <span className="font-display text-[0.7rem] font-900 text-white/10 group-hover:text-[#cc1f1f]/20 transition-colors">
@@ -107,18 +99,14 @@ export default function WhyUs() {
                 <p className="text-white/30 text-[0.85rem] leading-relaxed font-light group-hover:text-white/50 transition-colors">
                   {p.desc}
                 </p>
-
-                {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none overflow-hidden">
-                   <div className="absolute top-[-15px] right-[-15px] w-10 h-10 bg-white/5 rotate-45 group-hover:bg-[#cc1f1f]/20 transition-colors" />
+                   <div className="absolute -top-3.75 -right-3.75 w-10 h-10 bg-white/5 rotate-45 group-hover:bg-[#cc1f1f]/20 transition-colors" />
                 </div>
               </div>
             );
           })}
         </div>
-
-        {/* STATS: Industrial Dashboard */}
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 border border-white/5 bg-white/[0.01] backdrop-blur-sm">
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 border border-white/5 bg-white/1 backdrop-blur-sm">
           {[
             { v: "1000+", l: "Unités en Stock" },
             { v: "0.0mm", l: "Tolérance Ajustement" },
@@ -134,8 +122,7 @@ export default function WhyUs() {
               <div className="text-[0.6rem] tracking-[0.4em] text-white/20 uppercase font-black">
                 {s.l}
               </div>
-              {/* Animated background bar */}
-              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#cc1f1f] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#cc1f1f] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </div>
           ))}
         </div>

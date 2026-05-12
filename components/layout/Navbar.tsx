@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
-// 1. Define routes ONCE to avoid spelling mismatches
+
 const navLinks = [
   { href: "/", label: "Accueil" },
   { href: "/catalog", label: "Catalogue" },
@@ -41,15 +41,12 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
-
-          {/* LOGO */}
           <Link href="/" className="flex items-center gap-1 group">
             <span className="font-display font-900 italic text-2xl lg:text-3xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
               CARRO<span className="text-[#cc1f1f] drop-shadow-[0_0_10px_rgba(204,31,31,0.6)]">PRO</span>
             </span>
           </Link>
 
-          {/* DESKTOP NAV */}
           <ul className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const active = pathname === link.href;
@@ -67,31 +64,29 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                   {active && (
-                    <div className="absolute bottom-0 left-6 right-6 h-[1px] bg-[#cc1f1f] shadow-[0_0_8px_#cc1f1f]" />
+                    <div className="absolute bottom-0 left-6 right-6 h-px bg-[#cc1f1f] shadow-[0_0_8px_#cc1f1f]" />
                   )}
                 </li>
               );
             })}
           </ul>
-
-          {/* MOBILE TOGGLE */}
+          
           <button onClick={() => setOpen(!open)} className="md:hidden group p-2 z-50 relative">
             <div className="flex flex-col gap-1.5 items-end">
-              <span className={`h-[1px] bg-white transition-all duration-500 ${open ? "w-6 rotate-45 translate-y-[4px]" : "w-8"}`} />
-              <span className={`h-[1px] bg-[#cc1f1f] transition-all duration-500 ${open ? "opacity-0" : "w-5"}`} />
-              <span className={`h-[1px] bg-white transition-all duration-500 ${open ? "w-6 -rotate-45 -translate-y-[4px]" : "w-6"}`} />
+              <span className={`h-px bg-white transition-all duration-500 ${open ? "w-6 rotate-45 translate-y-1" : "w-8"}`} />
+              <span className={`h-px bg-[#cc1f1f] transition-all duration-500 ${open ? "opacity-0" : "w-5"}`} />
+              <span className={`h-px bg-white transition-all duration-500 ${open ? "w-6 -rotate-45 -translate-y-1" : "w-6"}`} />
             </div>
           </button>
         </div>
       </nav>
 
-      {/* MOBILE MENU - FIXED LINKS */}
-      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-[40px] transition-all duration-700 flex flex-col justify-center items-center ${open ? "translate-x-0" : "translate-x-full"}`}>
+      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl transition-all duration-700 flex flex-col justify-center items-center ${open ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex flex-col items-center gap-12">
           {navLinks.map((link, i) => (
             <Link
               key={link.href}
-              href={link.href} // Uses the clean href from our array
+              href={link.href} 
               onClick={() => setOpen(false)}
               className="group relative font-display text-4xl font-900 tracking-[0.4em] uppercase text-white/20 hover:text-white transition-all"
             >

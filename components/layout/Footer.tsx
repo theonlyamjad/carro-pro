@@ -8,16 +8,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#020202] border-t border-white/5 pt-24 pb-12 overflow-hidden relative">
-      
-      {/* Decorative Serial Number Background */}
-      <div className="absolute right-[-2%] bottom-0 font-display text-[15rem] font-900 text-white/[0.02] pointer-events-none select-none">
+      <div className="absolute right-[-2%] bottom-0 font-display text-[15rem] font-900 text-white/2 pointer-events-none select-none">
         PRO
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
-          
-          {/* ── BRAND COLUMN ── */}
           <div className="md:col-span-5">
             <Link href="/" className="flex items-center gap-1 mb-8 group">
               <span className="font-display font-900 italic text-3xl tracking-tighter text-white uppercase">
@@ -30,8 +26,6 @@ export default function Footer() {
               et professionnels de l'automobile.
             </p>
           </div>
-
-          {/* ── NAVIGATION ── */}
           <div className="md:col-span-3">
             <h3 className="font-display text-[0.7rem] tracking-[0.4em] text-white/20 uppercase font-black mb-10">
               Navigation // Index
@@ -48,15 +42,13 @@ export default function Footer() {
                     href={link.href}
                     className="group flex items-center gap-2 text-white/50 hover:text-white text-xs uppercase tracking-[0.15em] transition-all duration-300"
                   >
-                    <span className="w-0 h-[1px] bg-[#cc1f1f] group-hover:w-4 transition-all duration-300" />
+                    <span className="w-0 h-px bg-[#cc1f1f] group-hover:w-4 transition-all duration-300" />
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* ── CONTACT & LOCALE ── */}
           <div className="md:col-span-4">
             <h3 className="font-display text-[0.7rem] tracking-[0.4em] text-white/20 uppercase font-black mb-10">
               Connectivité // HQ
@@ -85,8 +77,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        {/* ── SYSTEM DATA FOOTER ── */}
         <div className=" border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-8">
             <p className="text-white/10 text-[0.55rem] tracking-[0.3em] font-black uppercase">

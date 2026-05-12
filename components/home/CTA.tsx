@@ -34,8 +34,6 @@ export default function CTA() {
 
   return (
     <section ref={sRef} className="relative overflow-hidden bg-[#020202] py-40 lg:py-60">
-      
-      {/* Parallax Grid Layer */}
       <div 
         ref={gridRef}
         className="absolute inset-[-10%] opacity-[0.05] pointer-events-none"
@@ -45,8 +43,6 @@ export default function CTA() {
           backgroundSize: "60px 60px",
         }}
       />
-
-      {/* The Diagonal Stripes */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: "repeating-linear-gradient(45deg, #fa0000 0, #fa0000 4px, transparent 0, transparent 100%)",
@@ -57,15 +53,13 @@ export default function CTA() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="cta-main opacity-0">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 border border-white/5 bg-black/40 backdrop-blur-3xl overflow-hidden min-h-[600px]">
-            
-            {/* LEFT SIDE: THE COMMAND CENTER */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 border border-white/5 bg-black/40 backdrop-blur-3xl overflow-hidden min-h-150">
             <div className="lg:col-span-7 p-10 lg:p-20 border-b lg:border-b-0 lg:border-r border-white/5 relative flex flex-col justify-center">
 
               <h2 className="font-display font-900 text-white leading-[0.8] uppercase mb-10"
                 style={{ fontSize: "clamp(3.5rem, 12vw, 9.5rem)" }}>
                 VOTRE <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#cc1f1f] to-[#ff4d4d] italic">PIÈCE</span><br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#cc1f1f] to-[#ff4d4d] italic">PIÈCE</span><br />
                 MAINTENANT
               </h2>
 
@@ -88,12 +82,8 @@ export default function CTA() {
                 </a>
               </div>
             </div>
-
-            {/* RIGHT SIDE: THE TECH SPECS */}
             <div className="lg:col-span-5 flex flex-col">
-              
-              {/* Location Module */}
-              <div className="p-10 lg:p-12 border-b border-white/5 group hover:bg-white/[0.02] transition-colors cursor-crosshair flex-grow">
+              <div className="p-10 lg:p-12 border-b border-white/5 group hover:bg-white/2 transition-colors cursor-crosshair grow">
                 <div className="flex items-center justify-between mb-6">
                   <MapPin size={16} className="text-[#cc1f1f]" />
                   <span className="text-[0.5rem] text-white/20 font-black tracking-[0.4em]">LOC_01</span>
@@ -101,9 +91,7 @@ export default function CTA() {
                 <h4 className="font-display text-white text-3xl font-800 uppercase tracking-tighter">AGADIR, MAROC</h4>
                 <p className="text-white/30 text-[0.65rem] tracking-[0.2em] uppercase mt-2">Hay El Farah</p>
               </div>
-
-              {/* Timing Module */}
-              <div className="p-10 lg:p-12 border-b border-white/5 group hover:bg-white/[0.02] transition-colors flex-grow">
+              <div className="p-10 lg:p-12 border-b border-white/5 group hover:bg-white/2 transition-colors grow">
                 <div className="flex items-center justify-between mb-6">
                   <Navigation size={16} className="text-[#cc1f1f]" />
                   <span className="text-[0.5rem] text-white/20 font-black tracking-[0.4em]">TIM_02</span>
@@ -111,8 +99,6 @@ export default function CTA() {
                 <h4 className="font-display text-white text-3xl font-800 uppercase tracking-tighter">09:00 — 19:00</h4>
                 <p className="text-white/30 text-[0.65rem] tracking-[0.2em] uppercase mt-2">Lundi au Samedi / Service Client</p>
               </div>
-
-              {/* Verified Google Maps Action Module */}
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=Carropro+Agadir+Hay+El+Farah" 
                 target="_blank" 
@@ -128,17 +114,8 @@ export default function CTA() {
                   <Navigation size={18} className="text-[#cc1f1f] group-hover:text-white transition-colors" />
                 </div>
               </a>
-
             </div>
           </div>
-
-          {/* Footer Metadata */}
-          <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4 opacity-20">
-            <span className="font-display text-[0.5rem] tracking-[0.8em] text-white uppercase">© 2026 CARROPRO AUTOMOTIVE SYSTEM</span>
-            <div className="h-[1px] flex-grow bg-white/10 mx-10 hidden md:block" />
-            <span className="font-display text-[0.5rem] tracking-[0.8em] text-white uppercase">Souss-Massa Hub</span>
-          </div>
-
         </div>
       </div>
     </section>
