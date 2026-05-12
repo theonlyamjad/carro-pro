@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import TransitionProvider from "@/components/layout/TransitionProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Script from "next/script";
@@ -173,7 +174,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-black text-white antialiased selection:bg-[#cc1f1f]/20 selection:text-white">
         <Navbar />
-        <main>{children}</main>
+          <main>
+            <TransitionProvider>{children}</TransitionProvider>
+          </main>
         <Footer />
       </body>
     </html>

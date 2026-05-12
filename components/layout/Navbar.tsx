@@ -5,6 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
+// 1. Define routes ONCE to avoid spelling mismatches
+const navLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/catalog", label: "Catalogue" },
+  { href: "/about", label: "L'Atelier" },
+  { href: "/contact", label: "Contact" }
+];
+
 export default function Navbar() {
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
@@ -34,23 +42,16 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
 
-          {/* LOGO - Sharp & Italic */}
+          {/* LOGO */}
           <Link href="/" className="flex items-center gap-1 group">
-            <div className="relative">
-              <span className="font-display font-900 italic text-2xl lg:text-3xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
-                CARRO<span className="text-[#cc1f1f] drop-shadow-[0_0_10px_rgba(204,31,31,0.6)]">PRO</span>
-              </span>
-            </div>
+            <span className="font-display font-900 italic text-2xl lg:text-3xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
+              CARRO<span className="text-[#cc1f1f] drop-shadow-[0_0_10px_rgba(204,31,31,0.6)]">PRO</span>
+            </span>
           </Link>
 
-          {/* DESKTOP NAV - Magazine Style */}
+          {/* DESKTOP NAV */}
           <ul className="hidden md:flex items-center gap-2">
-            {[
-              { href: "/", label: "Accueil" },
-              { href: "/catalog", label: "Catalogue" },
-              { href: "/about", label: "L'Atelier" }, // Changed to "The Workshop" for more vibe
-              { href: "/contact", label: "Contact" }
-            ].map((link) => {
+            {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
                 <li key={link.href} className="relative overflow-hidden group">
@@ -65,7 +66,6 @@ export default function Navbar() {
                     </span>
                     {link.label}
                   </Link>
-                  {/* Subtle hover bar */}
                   {active && (
                     <div className="absolute bottom-0 left-6 right-6 h-[1px] bg-[#cc1f1f] shadow-[0_0_8px_#cc1f1f]" />
                   )}
@@ -74,11 +74,8 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* MOBILE TOGGLE - Minimalist */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden group p-2"
-          >
+          {/* MOBILE TOGGLE */}
+          <button onClick={() => setOpen(!open)} className="md:hidden group p-2 z-50 relative">
             <div className="flex flex-col gap-1.5 items-end">
               <span className={`h-[1px] bg-white transition-all duration-500 ${open ? "w-6 rotate-45 translate-y-[4px]" : "w-8"}`} />
               <span className={`h-[1px] bg-[#cc1f1f] transition-all duration-500 ${open ? "opacity-0" : "w-5"}`} />
@@ -88,25 +85,23 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* MOBILE MENU - Full Screen Blur */}
-      <div className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-[40px] transition-all duration-700 flex flex-col justify-center items-center ${open ? "translate-x-0" : "translate-x-full"}`}>
+      {/* MOBILE MENU - FIXED LINKS */}
+      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-[40px] transition-all duration-700 flex flex-col justify-center items-center ${open ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex flex-col items-center gap-12">
-          {["Accueil", "Catalogue", "L'Atelier", "Contact"].map((label, i) => (
+          {navLinks.map((link, i) => (
             <Link
-              key={label}
-              href={label === "Accueil" ? "/" : `/${label.toLowerCase().replace(" ", "-")}`}
+              key={link.href}
+              href={link.href} // Uses the clean href from our array
               onClick={() => setOpen(false)}
               className="group relative font-display text-4xl font-900 tracking-[0.4em] uppercase text-white/20 hover:text-white transition-all"
             >
               <span className="absolute -left-12 top-1/2 -translate-y-1/2 text-[#cc1f1f] text-sm opacity-0 group-hover:opacity-100 transition-all tracking-normal">
                 0{i + 1}
               </span>
-              {label}
+              {link.label}
             </Link>
           ))}
         </div>
-        
-        {/* Mobile Footer Deco */}
         <div className="absolute bottom-10 font-display text-[0.6rem] tracking-[1em] text-white/10 uppercase">
           CarroPro Agadir Precision
         </div>
