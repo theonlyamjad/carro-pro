@@ -47,7 +47,7 @@ export default function CatalogClient() {
     <div className="min-h-screen bg-[#020202] pt-24 md:pt-32 pb-24 overflow-hidden relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 mb-12 lg:mb-32">
+      <header className="max-w-7xl mx-auto px-6 relative z-10 mb-12 lg:mb-32">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-4 md:mb-6">
@@ -62,30 +62,34 @@ export default function CatalogClient() {
             </h1>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <section className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="mb-12 border border-white/5 bg-[#050505] p-4 md:p-6 flex flex-col gap-6">
           <div className="relative w-full">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#cc1f1f]" />
+            <label htmlFor="search-parts" className="sr-only">Rechercher une pièce</label>
             <input
+              id="search-parts"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Réf / Marque / Modèle"
-              className="w-full bg-white/2 border border-white/10 text-white placeholder-white/30 pl-11 pr-4 py-4 font-display text-[0.7rem] uppercase tracking-widest focus:border-[#cc1f1f] focus:outline-none transition-colors"
+              className="w-full bg-white/2 border border-white/10 text-white placeholder-white/50 pl-11 pr-4 py-4 font-display text-[0.7rem] uppercase tracking-widest focus:border-[#cc1f1f] focus:outline-none transition-colors"
             />
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide no-scrollbar">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide no-scrollbar" role="tablist">
             {categories.map((cat) => (
               <button
                 key={cat}
+                role="tab"
+                aria-selected={cat === activeCategory}
                 onClick={() => setActiveCategory(cat)}
                 className={`whitespace-nowrap font-display text-[0.6rem] font-800 tracking-[0.25em] px-5 py-3 transition-all uppercase ${
                   cat === activeCategory
                     ? "bg-[#cc1f1f] text-white"
-                    : "bg-white/2 border border-white/5 text-white/40"
+                    : "bg-white/2 border border-white/5 text-white/60 hover:text-white"
                 }`}
               >
                 {cat}
@@ -96,39 +100,40 @@ export default function CatalogClient() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {filteredParts.map((part) => (
-            <div
+            <article
               key={part.id}
-              className="group bg-[#080808] border border-white/5 p-6 md:p-8 flex flex-col min-h-105 transition-all relative overflow-hidden"
+              className="group bg-[#080808] border border-white/5 p-6 md:p-8 flex flex-col min-h-110 transition-all relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-display text-[0.6rem] font-900 tracking-[0.3em] text-[#cc1f1f]">
                   MOD. {part.cat.substring(0, 2).toUpperCase()}
                 </span>
-                <span className="font-display text-[0.55rem] text-white/20 uppercase">
+                <span className="font-display text-[0.55rem] text-white/40 uppercase">
                   {part.ref}
                 </span>
               </div>
+
               <div className="aspect-square bg-linear-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/3 mb-6">
                 <div className="w-24 h-24 rounded-full border border-white/3 flex items-center justify-center relative">
                    {part.img && part.img !== "/parts/" ? (
                       <Image 
                         src={part.img} 
-                        alt={part.name} 
+                        alt={`${part.name} ${part.brand}`} 
                         fill
                         className="object-contain p-2 mix-blend-screen"
                         sizes="96px"
                       />
                     ) : (
-                      <span className="text-white/10 text-[0.5rem] font-display uppercase tracking-widest">No Signal</span>
+                      <span className="text-white/20 text-[0.5rem] font-display uppercase tracking-widest">No Signal</span>
                     )}
                 </div>
               </div>
 
               <div className="mb-6">
-                <h3 className="font-display font-800 text-2xl text-white uppercase tracking-tighter mb-1">
+                <h2 className="font-display font-800 text-2xl text-white uppercase tracking-tighter mb-1">
                   {part.name}
-                </h3>
-                <p className="text-white/40 text-[0.6rem] tracking-[0.2em] uppercase font-light">
+                </h2>
+                <p className="text-white/60 text-[0.6rem] tracking-[0.2em] uppercase font-light">
                   {part.brand} — {part.year}
                 </p>
               </div>
@@ -138,25 +143,26 @@ export default function CatalogClient() {
                   href={getWhatsAppLink(part.name, part.ref)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`S'informer sur WhatsApp pour ${part.name}`}
                   className="w-full bg-white/3 hover:bg-[#25D366] border border-white/10 hover:border-[#25D366] text-white font-display font-900 text-[0.65rem] uppercase tracking-[0.2em] py-4 flex items-center justify-center gap-3 transition-all duration-300"
                 >
-                  <MessageCircle size={16} />
+                  <MessageCircle size={16} aria-hidden="true" />
                   <span>S'informer</span>
                 </a>
               </div>
-              <div className="absolute -bottom-4 -right-4 font-display text-[6rem] font-900 text-white/2 pointer-events-none">
+              <div className="absolute -bottom-4 -right-4 font-display text-[6rem] font-900 text-white/2 pointer-events-none" aria-hidden="true">
                 {part.id}
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
         {filteredParts.length === 0 && (
           <div className="text-center py-20 border border-white/5 bg-[#080808]">
-             <p className="text-white/40 font-display uppercase tracking-widest text-xs">Index vide</p>
+             <p className="text-white/60 font-display uppercase tracking-widest text-xs">Index vide</p>
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }

@@ -14,6 +14,7 @@ const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
   variable: "--font-barlow-condensed",
   display: "swap",
+  preload: true,
 });
 
 const instrumentSans = Instrument_Sans({
@@ -21,38 +22,26 @@ const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-instrument-sans",
   display: "swap",
+  preload: true,
 });
 
 const siteUrl = "https://carropro.ma"; 
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  
   title: {
     default: "CarroPro Atelier | Pièces Carrosserie d'Origine Vérifiées Agadir",
     template: "%s | CarroPro Atelier — Agadir Hub", 
   },
   description:
-    "La référence d'Agadir pour les pièces de carrosserie d'occasion d'origine vérifiées OEM. Pare-chocs, phares, ailes, capots testés et validés pour toutes marques. Livraison rapide.",
+    "La référence d'Agadir pour les pièces de carrosserie d'occasion d'origine vérifiées OEM. Pare-chocs, phares, ailes, capots testés et validés pour toutes marques.",
   keywords: [
-    "pièces carrosserie d'occasion Agadir",
-    "CarroPro Atelier",
-    "pièces d'origine vérifiées",
-    "pare-choc d'occasion",
-    "phare voiture",
-    "aile voiture",
-    "capot moteur",
-    "sourcing VIN",
-    "casse automobile Agadir",
-    "réparation carrosserie Agadir",
-    "pièces OEM Maroc",
-    "Souss-Massa Hub Logistique",
+    "pièces carrosserie d'occasion Agadir", "CarroPro Atelier", "pièces d'origine vérifiées",
+    "pare-choc d'occasion", "phare voiture", "aile voiture", "OEM Maroc"
   ],
   authors: [{ name: "CarroPro Atelier", url: siteUrl }],
   creator: "CarroPro Automotive Systems",
   publisher: "CarroPro Atelier",
-
-
   robots: {
     index: true,
     follow: true,
@@ -64,61 +53,35 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
   openGraph: {
     title: "CarroPro Atelier | L'Exigence Automobile à Agadir",
-    description:
-      "Pièces carrosserie d'occasion d'origine certifiées. Testées, validées OEM et disponibles immédiatement pour toutes marques à Agadir.",
+    description: "Pièces carrosserie d'occasion d'origine certifiées à Agadir.",
     url: siteUrl,
     siteName: "CarroPro Atelier",
-    images: [
-      {
-        url: "/carropro-og-main.png",
-        width: 1200,
-        height: 630,
-        alt: "CarroPro Atelier - Sourcing de pièces d'origine certifiées à Agadir",
-      },
-    ],
+    images: [{ url: "/carropro-og-main.png", width: 1200, height: 630, alt: "CarroPro Atelier Agadir" }],
     locale: "fr_MA",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "CarroPro Atelier | Pièces Carrosserie d'Origine Agadir",
-    description: "Vérifiées OEM. Validées structurellement. Disponibilité Immédiate.",
+    description: "Vérifiées OEM. Validées structurellement.",
     images: ["/images/carropro-og-main.jpg"], 
-    creator: "@carropro", 
   },
-
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
-    other: [
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "32x32",
-        url: "/favicon-32x32.png",
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "16x16",
-        url: "/favicon-16x16.png",
-      },
-    ],
   },
   manifest: "/site.webmanifest", 
-
 };
 
 export const viewport: Viewport = {
-  themeColor: "#020202", 
+  themeColor: "#020202",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1, 
+  maximumScale: 5, 
+  userScalable: true,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -147,14 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         opens: "09:00",
         closes: "19:00",
       },
@@ -174,8 +130,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-black text-white antialiased selection:bg-[#cc1f1f]/20 selection:text-white">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-[#cc1f1f] focus:px-4 focus:py-2 focus:text-white">
+          Passer au contenu
+        </a>
+
         <Navbar />
-          <main>
+          <main id="main-content">
             <TransitionProvider>{children}</TransitionProvider>
           </main>
         <Footer />

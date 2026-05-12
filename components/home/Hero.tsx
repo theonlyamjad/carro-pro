@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
-import Image from "next/image"; //
+import Image from "next/image";
 import { ArrowRight, Phone } from "lucide-react";
 
 export default function Hero() {
@@ -12,34 +12,36 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+      const tl = gsap.timeline({ delay: 0.1 }); 
 
       tl.fromTo(".bg-car-wrapper", 
-        { scale: 1.15, opacity: 0, x: 150 }, 
-        { scale: 1, opacity: 0.4, x: 0, duration: 2.5, ease: "expo.out" }
+        { scale: 1.1, opacity: 0, x: 80 }, 
+        { scale: 1, opacity: 0.4, x: 0, duration: 2, ease: "power4.out" }
       )
       .fromTo(".h-title-line", 
-        { y: 150, skewY: 10, opacity: 0 }, 
-        { y: 0, skewY: 0, opacity: 1, stagger: 0.1, duration: 1.2, ease: "expo.out" }, "-=1.8")
+        { y: 100, skewY: 5, opacity: 0 }, 
+        { y: 0, skewY: 0, opacity: 1, stagger: 0.1, duration: 1, ease: "expo.out" }, "-=1.5")
       .fromTo(".h-details", 
-        { opacity: 0, x: -20 }, 
-        { opacity: 1, x: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+        { opacity: 0, y: 10 }, 
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.5");
 
       const handleMouseMove = (e: MouseEvent) => {
         const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 30; 
-        const yPos = (clientY / window.innerHeight - 0.5) * 15;
+        const xPos = (clientX / window.innerWidth - 0.5) * 20; 
+        const yPos = (clientY / window.innerHeight - 0.5) * 10;
 
         gsap.to(carWrapperRef.current, {
           x: xPos,
           y: yPos,
-          duration: 2,
+          duration: 1.5,
           ease: "power2.out"
         });
       };
 
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => window.removeEventListener("mousemove", handleMouseMove);
+      if (window.innerWidth > 1024) {
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+      }
     }, rootRef);
     
     return () => ctx.revert();
@@ -50,15 +52,17 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
           ref={carWrapperRef}
-          className="bg-car-wrapper absolute right-[-5%] top-1/2 -translate-y-1/2 w-full lg:w-[85%] h-[60vh] lg:h-[80vh]"
+          className="bg-car-wrapper opacity-0 absolute right-[-5%] top-1/2 -translate-y-1/2 w-full lg:w-[85%] h-[50vh] lg:h-[80vh]"
         >
           <Image 
             src="/bugatti-chiron.png" 
             alt="Bugatti Chiron CarroPro" 
             fill
             priority
-            className="object-contain opacity-100" 
-            sizes="(max-width: 768px) 100vw, 85vw"
+            fetchPriority="high" 
+            loading="eager"
+            className="object-contain" 
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
           />
         </div>
         <div className="absolute inset-0 bg-linear-to-r from-[#020202] via-[#020202]/70 to-transparent z-10" />
@@ -66,8 +70,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-20 w-full pt-20 lg:pt-0">
-        
-        <div className="h-details flex items-center gap-4 mb-8">
+        <div className="h-details opacity-0 flex items-center gap-4 mb-8">
           <span className="w-12 h-px bg-[#cc1f1f] shadow-[0_0_12px_#cc1f1f]" />
           <span className="font-display text-[0.65rem] tracking-[0.5em] uppercase text-[#cc1f1f] font-900">
             Performance Absolue
@@ -76,31 +79,37 @@ export default function Hero() {
 
         <h1 className="font-display font-900 leading-[0.8] text-white uppercase pointer-events-none select-none" style={{ fontSize: "clamp(3.5rem, 12vw, 11rem)" }}>
           <div className="overflow-hidden py-2">
-            <div className="h-title-line italic tracking-tighter">Pure</div>
+            <div className="h-title-line opacity-0 italic tracking-tighter">Pure</div>
           </div>
           <div className="overflow-hidden py-2">
-            <div className="h-title-line text-[#cc1f1f] drop-shadow-[0_0_40px_rgba(204,31,31,0.3)]">Performance</div>
+            <div className="h-title-line opacity-0 text-[#cc1f1f] drop-shadow-[0_0_40px_rgba(204,31,31,0.3)]">Performance</div>
           </div>
           <div className="overflow-hidden py-2">
-            <div className="h-title-line italic tracking-tighter">D'Origine</div>
+            <div className="h-title-line opacity-0 italic tracking-tighter">D'Origine</div>
           </div>
         </h1>
 
-        <div className="h-details mt-10 max-w-xl">
-          <p className="text-white/40 font-light leading-relaxed text-base lg:text-lg border-l border-white/20 pl-8 backdrop-blur-[2px]">
+        <div className="h-details opacity-0 mt-10 max-w-xl">
+          <p className="text-white/60 font-light leading-relaxed text-base lg:text-lg border-l border-white/20 pl-8 backdrop-blur-[2px]">
             Partenaire privilégié à <span className="text-white">Agadir</span> pour des composants 
             de carrosserie haut de gamme. Chaque pièce est une promesse de précision.
           </p>
           
           <div className="flex flex-wrap gap-6 mt-14">
-            <Link href="/catalog" className="group relative overflow-hidden px-12 py-5 bg-[#cc1f1f] text-white font-display font-900 tracking-[0.25em] text-[0.7rem] uppercase transition-all duration-500">
+            <Link 
+              href="/catalog" 
+              className="group relative overflow-hidden px-12 py-5 bg-[#cc1f1f] text-white font-display font-900 tracking-[0.25em] text-[0.7rem] uppercase transition-all duration-500"
+            >
               <span className="relative z-10 flex items-center gap-4 group-hover:text-black transition-colors duration-500">
                 Découvrir le stock <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
               </span>
               <div className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-in-out" />
             </Link>
             
-            <a href="tel:+212635620605" className="px-12 py-5 border border-white/10 bg-white/2 hover:bg-white/5 hover:border-[#cc1f1f] text-white font-display font-800 tracking-[0.25em] text-[0.7rem] uppercase transition-all duration-500 backdrop-blur-xl flex items-center gap-3">
+            <a 
+              href="tel:+212635620605" 
+              className="px-12 py-5 border border-white/10 bg-white/2 hover:bg-white/5 hover:border-[#cc1f1f] text-white font-display font-800 tracking-[0.25em] text-[0.7rem] uppercase transition-all duration-500 backdrop-blur-xl flex items-center gap-3"
+            >
               <Phone size={14} className="text-[#cc1f1f]" /> +212 635 620 605
             </a>
           </div>
