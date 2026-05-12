@@ -5,7 +5,6 @@
   --font-sans: var(--font-instrument-sans);
 }
 
-/* Base resets */
 body {
   background-color: #030303;
   color: #ffffff;
@@ -13,13 +12,11 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom laser dot grid pattern */
 .dot-grid {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-/* Glowing laser lines animation */
 @keyframes neon-pulse {
   0%, 100% {
     opacity: 0.3;
@@ -33,4 +30,10 @@ body {
 
 .laser-pulse {
   animation: neon-pulse 3s infinite ease-in-out;
+}
+
+.gsap-reveal {
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
 }

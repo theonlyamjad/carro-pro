@@ -18,9 +18,17 @@ export default function Hero() {
         { opacity: 0, x: 20, scale: 1.05 },
         { opacity: 0.4, x: 0, scale: 1, duration: 1.5, ease: "power3.out" }
       )
-      .fromTo(".h-title-line", 
-        { y: 100, skewY: 5, opacity: 0 }, 
-        { y: 0, skewY: 0, opacity: 1, stagger: 0.1, duration: 1, ease: "expo.out" }, "-=1.5")
+      tl.fromTo(".h-title-line", 
+        { y: 50, opacity: 0 }, 
+        { 
+          y: 0, 
+          opacity: 1, 
+          stagger: 0.1, 
+          duration: 0.8, 
+          ease: "power4.out",
+          onStart: () => gsap.set(".h-title-line", { visibility: "visible" }) 
+        }
+      )
       .fromTo(".h-details", 
         { opacity: 0, y: 10 }, 
         { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.5");
@@ -76,15 +84,12 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="font-display font-900 leading-[0.8] text-white uppercase pointer-events-none select-none" style={{ fontSize: "clamp(3.5rem, 12vw, 11rem)" }}>
-          <div className="overflow-hidden py-2">
-            <div className="h-title-line opacity-0 italic tracking-tighter">Pure</div>
+        <h1 className="font-display font-900 leading-[0.8] text-white uppercase">
+          <div className="overflow-hidden py-2 h-[1.1em]"> 
+            <div className="h-title-line gsap-reveal italic tracking-tighter">Pure</div>
           </div>
-          <div className="overflow-hidden py-2">
-            <div className="h-title-line opacity-0 text-[#cc1f1f] drop-shadow-[0_0_40px_rgba(204,31,31,0.3)]">Performance</div>
-          </div>
-          <div className="overflow-hidden py-2">
-            <div className="h-title-line opacity-0 italic tracking-tighter">D'Origine</div>
+          <div className="overflow-hidden py-2 h-[1.1em]">
+            <div className="h-title-line gsap-reveal text-[#cc1f1f]">Performance</div>
           </div>
         </h1>
 
