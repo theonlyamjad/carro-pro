@@ -28,7 +28,7 @@ export default function Footer() {
           </div>
           <div className="md:col-span-3">
             <h3 className="font-display text-[0.7rem] tracking-[0.4em] text-white/20 uppercase font-black mb-10">
-              Navigation // Index
+              Lien utiles
             </h3>
             <ul className="flex flex-col gap-4">
               {[
@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
           <div className="md:col-span-4">
             <h3 className="font-display text-[0.7rem] tracking-[0.4em] text-white/20 uppercase font-black mb-10">
-              Connectivité // HQ
+              Contact
             </h3>
             <div className="space-y-6">
               <a

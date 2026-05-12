@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Search, MessageCircle, ArrowRight } from "lucide-react";
+import Image from "next/image"; 
+import { Search, MessageCircle } from "lucide-react";
 
 const WHATSAPP_NUMBER = "212635620605"; 
 
@@ -15,8 +16,8 @@ const categories = [
 ];
 
 const demoParts = [
-  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/" },
-  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", cat: "Phares", ref: "CP-PH-02", img: "/parts/" },
+  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/pc-dacia.png" },
+  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", cat: "Phares", ref: "CP-PH-02", img: "/parts/ph-208.png" },
 ];
 
 export default function CatalogClient() {
@@ -46,7 +47,6 @@ export default function CatalogClient() {
     <div className="min-h-screen bg-[#020202] pt-24 md:pt-32 pb-24 overflow-hidden relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20 pointer-events-none" />
 
-      {/* HEADER - Adjusted padding for mobile */}
       <div className="max-w-7xl mx-auto px-6 relative z-10 mb-12 lg:mb-32">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-3xl">
@@ -93,6 +93,7 @@ export default function CatalogClient() {
             ))}
           </div>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {filteredParts.map((part) => (
             <div
@@ -108,14 +109,21 @@ export default function CatalogClient() {
                 </span>
               </div>
               <div className="aspect-square bg-linear-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/3 mb-6">
-                <div className="w-24 h-24 rounded-full border border-white/3 flex items-center justify-center relative overflow-hidden">
-                   {part.img ? (
-                      <img src={part.img} alt={part.name} className="w-auto h-auto max-w-[80%] max-h-[80%] object-contain mix-blend-screen" />
+                <div className="w-24 h-24 rounded-full border border-white/3 flex items-center justify-center relative">
+                   {part.img && part.img !== "/parts/" ? (
+                      <Image 
+                        src={part.img} 
+                        alt={part.name} 
+                        fill
+                        className="object-contain p-2 mix-blend-screen"
+                        sizes="96px"
+                      />
                     ) : (
                       <span className="text-white/10 text-[0.5rem] font-display uppercase tracking-widest">No Signal</span>
                     )}
                 </div>
               </div>
+
               <div className="mb-6">
                 <h3 className="font-display font-800 text-2xl text-white uppercase tracking-tighter mb-1">
                   {part.name}
@@ -124,6 +132,7 @@ export default function CatalogClient() {
                   {part.brand} — {part.year}
                 </p>
               </div>
+
               <div className="mt-auto">
                 <a 
                   href={getWhatsAppLink(part.name, part.ref)}
@@ -141,6 +150,7 @@ export default function CatalogClient() {
             </div>
           ))}
         </div>
+
         {filteredParts.length === 0 && (
           <div className="text-center py-20 border border-white/5 bg-[#080808]">
              <p className="text-white/40 font-display uppercase tracking-widest text-xs">Index vide</p>
