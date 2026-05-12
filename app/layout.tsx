@@ -9,12 +9,11 @@ import { Analytics } from "@vercel/analytics/next"
 
 
 const barlowCondensed = Barlow_Condensed({
-  weight: ["400", "600", "700", "800", "900"], 
+  weight: ["400", "700", "900"], 
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-barlow-condensed",
   display: "swap",
-  preload: true,
 });
 
 const instrumentSans = Instrument_Sans({

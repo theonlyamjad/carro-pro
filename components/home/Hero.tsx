@@ -15,8 +15,8 @@ export default function Hero() {
       const tl = gsap.timeline({ delay: 0.1 }); 
 
       tl.fromTo(".bg-car-wrapper", 
-        { scale: 1.1, opacity: 0, x: 80 }, 
-        { scale: 1, opacity: 0.4, x: 0, duration: 2, ease: "power4.out" }
+        { opacity: 0, x: 20, scale: 1.05 },
+        { opacity: 0.4, x: 0, scale: 1, duration: 1.5, ease: "power3.out" }
       )
       .fromTo(".h-title-line", 
         { y: 100, skewY: 5, opacity: 0 }, 
@@ -50,21 +50,20 @@ export default function Hero() {
   return (
     <section ref={rootRef} className="relative min-h-screen bg-[#020202] overflow-hidden flex items-center">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div 
-          ref={carWrapperRef}
-          className="bg-car-wrapper opacity-0 absolute right-[-5%] top-1/2 -translate-y-1/2 w-full lg:w-[85%] h-[50vh] lg:h-[80vh]"
-        >
-          <Image 
-            src="/bugatti-chiron.png" 
-            alt="Bugatti Chiron CarroPro" 
-            fill
-            priority
-            fetchPriority="high" 
-            loading="eager"
-            className="object-contain" 
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-          />
-        </div>
+          <div 
+            ref={carWrapperRef}
+            className="bg-car-wrapper opacity-0 absolute right-[-5%] top-1/2 -translate-y-1/2 w-full lg:w-[85%] aspect-video lg:aspect-auto h-[40vh] lg:h-[80vh]"
+          >
+            <Image 
+              src="/bugatti-chiron.png" 
+              alt="Bugatti Chiron CarroPro" 
+              fill
+              priority
+              fetchPriority="high"
+              className="object-contain" 
+              sizes="(max-width: 768px) 100vw, 85vw"
+            />
+          </div>
         <div className="absolute inset-0 bg-linear-to-r from-[#020202] via-[#020202]/70 to-transparent z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020202_90%)] z-10" />
       </div>
