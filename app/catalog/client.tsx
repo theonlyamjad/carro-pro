@@ -15,8 +15,8 @@ const categories = [
 ];
 
 const demoParts = [
-  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/pc-dacia.png" },
-  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", cat: "Phares", ref: "CP-PH-02", img: "/parts/ph-208.png" },
+  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/" },
+  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", cat: "Phares", ref: "CP-PH-02", img: "/parts/" },
 ];
 
 export default function CatalogClient() {
