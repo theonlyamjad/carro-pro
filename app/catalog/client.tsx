@@ -146,7 +146,6 @@ export default function CatalogClient() {
              <p className="text-white/40 font-display uppercase tracking-widest text-xs">Index vide</p>
           </div>
         )}
-
       </div>
     </div>
   );

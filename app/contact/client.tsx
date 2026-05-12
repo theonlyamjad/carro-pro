@@ -122,14 +122,7 @@ export default function ContactClient() {
             </div>
             <ArrowUpRight size={22} className="text-white/20 group-hover:text-white transition-colors" />
           </a>
-
         </div>
-        <div className="mt-20 flex justify-between items-center opacity-10">
-          <div className="text-[0.5rem] tracking-[1em] text-white font-display uppercase">© CarroPro Liaison HQ v3.0</div>
-          <div className="h-px grow bg-white mx-10" />
-          <div className="text-[0.5rem] tracking-[1em] text-white font-display uppercase">Agadir Region Hub</div>
-        </div>
-
       </div>
     </div>
   );
