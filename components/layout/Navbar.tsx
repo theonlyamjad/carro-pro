@@ -49,7 +49,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
           <Link href="/" aria-label="CarroPro Accueil" className="flex items-center gap-1 group">
-            <span className="font-display font-900 italic text-2xl lg:text-3xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
+            <span className="font-display font-900 italic text-5xl lg:text-5xl tracking-tighter text-white uppercase transition-all duration-500 group-hover:tracking-normal">
               CARRO<span className="text-[#cc1f1f] drop-shadow-[0_0:10px_rgba(204,31,31,0.6)]">PRO</span>
             </span>
           </Link>

@@ -84,14 +84,14 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="font-display font-900 leading-[0.85] text-white uppercase text-[clamp(4rem,10vw,10rem)]">
-          <div className="overflow-hidden py-2"> 
-            <div className="h-title-line gsap-reveal italic tracking-tighter">Pure</div>
-          </div>
-          <div className="overflow-hidden py-2">
-            <div className="h-title-line gsap-reveal text-[#cc1f1f]">Performance</div>
-          </div>
-        </h1>
+        <h1 className="font-display font-900 leading-[0.85] text-white uppercase text-[clamp(3rem,8vw,7.5rem)]">
+  <div className="overflow-hidden py-1 h-[1.15em]"> 
+    <div className="h-title-line gsap-reveal italic tracking-tighter">Pure</div>
+  </div>
+  <div className="overflow-hidden py-1 h-[1.15em]">
+    <div className="h-title-line gsap-reveal text-[#cc1f1f]">Performance</div>
+  </div>
+</h1>
 
         <div className="h-details opacity-0 mt-10 max-w-xl">
           <p className="text-white/60 font-light leading-relaxed text-base lg:text-lg border-l border-white/20 pl-8 backdrop-blur-[2px]">

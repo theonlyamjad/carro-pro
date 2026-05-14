@@ -11,13 +11,20 @@ const categories = [
   "Pare-choc",
   "Phares",
   "Ailes",
-  "Capot",
+  "Calandres",
   "Accessoires",
 ];
 
+
 const demoParts = [
-  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2015-2020", cat: "Pare-choc", ref: "CP-PC-01", img: "/parts/pc-dacia.png" },
-  { id: 2, name: "Phare Gauche", brand: "Peugeot 208", year: "2012-2018", cat: "Phares", ref: "CP-PH-02", img: "/parts/ph-208.png" },
+  { id: 1, name: "Pare-choc Avant", brand: "Dacia Logan", year: "2018+", cat: "Pare-choc", img: "/Parchoc_av_logan_2018+.png" },
+  { id: 2, name: "Pare-choc Avant", brand: "Peugeot 208", year: "2019", cat: "Pare-choc",  img: "/Parchoc_p208_2019.png" },
+  { id: 3, name: "Pare-choc Avant", brand: "Skoda Octavia", year: "2018+", cat: "Pare-choc",  img: "/Parchoc_octavia_2018+.png" },
+  { id: 4, name: "Calandre Centrale", brand: "Peugeot 208", year: "2021+", cat: "Calandres",  img: "/Calandre_p208_2021+.png" },
+  { id: 5, name: "Calandre Centrale", brand: "Dacia Sandero Stepway", year: "2018+", cat: "Calandres",  img: "/Calandre_sandero_stepway_2018+.png" },
+  { id: 6, name: "Aile Avant", brand: "Dacia Logan", year: "2022+", cat: "Ailes",  img: "/Aile_av_logan_2022+.png" },
+  { id: 7, name: "Grille de Phare", brand: "Dacia Logan", year: "2024+", cat: "Accessoires", img: "/Grille_phs_logan_2024+.png" },
+  { id: 8, name: "Grille de Phare", brand: "Dacia Stepway", year: "2022+", cat: "Accessoires",  img: "/Grille_phs_stepway_2022+.png" },
 ];
 
 export default function CatalogClient() {
@@ -28,9 +35,8 @@ export default function CatalogClient() {
     const matchesSearch = 
       searchTerm === "" || 
       part.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      part.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      part.ref.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      part.brand.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesCategory = 
       activeCategory === "Tous" || 
       part.cat === activeCategory;
@@ -38,13 +44,14 @@ export default function CatalogClient() {
     return matchesSearch && matchesCategory;
   });
 
-  const getWhatsAppLink = (partName: string, partRef: string) => {
-    const message = `Bonjour CarroPro, je suis intéressé par la pièce : ${partName} (Réf: ${partRef}). Est-elle disponible ?`;
+  const getWhatsAppLink = (partName: string) => {
+    const message = `Bonjour CarroPro, je suis intéressé par la pièce :\n*${partName}*\nEst-elle disponible ?`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   return (
     <div className="min-h-screen bg-[#020202] pt-24 md:pt-32 pb-24 overflow-hidden relative">
+      
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20 pointer-events-none" />
 
       <header className="max-w-7xl mx-auto px-6 relative z-10 mb-12 lg:mb-32">
@@ -106,31 +113,29 @@ export default function CatalogClient() {
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-display text-[0.6rem] font-900 tracking-[0.3em] text-[#cc1f1f]">
-                  MOD. {part.cat.substring(0, 2).toUpperCase()}
-                </span>
-                <span className="font-display text-[0.55rem] text-white/40 uppercase">
-                  {part.ref}
+                  {part.cat.toUpperCase()}
                 </span>
               </div>
-
-              <div className="aspect-square bg-linear-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/3 mb-6">
-                <div className="w-24 h-24 rounded-full border border-white/3 flex items-center justify-center relative">
-                   {part.img && part.img !== "/parts/" ? (
+              <div className="aspect-square bg-linear-to-b from-[#0a0a0a] to-[#020202] flex items-center justify-center relative border border-white/3 mb-6 overflow-hidden group/img">
+                <div className="relative w-full h-full p-4">
+                  {part.img ? (
                       <Image 
                         src={part.img} 
                         alt={`${part.name} ${part.brand}`} 
                         fill
-                        className="object-contain p-2 mix-blend-screen"
-                        sizes="96px"
+                        className="object-contain transition-transform duration-700 ease-out group-hover/img:scale-125"
+                        sizes="(max-width: 768px) 100vw, 300px"
                       />
                     ) : (
-                      <span className="text-white/20 text-[0.5rem] font-display uppercase tracking-widest">No Signal</span>
+                      <div className="flex items-center justify-center h-full">
+                        <span className="text-white/20 text-[0.5rem] font-display uppercase tracking-widest">No Signal</span>
+                      </div>
                     )}
                 </div>
               </div>
 
               <div className="mb-6">
-                <h2 className="font-display font-800 text-2xl text-white uppercase tracking-tighter mb-1">
+                <h2 className="font-display font-800 text-xl text-white uppercase tracking-tighter mb-1">
                   {part.name}
                 </h2>
                 <p className="text-white/60 text-[0.6rem] tracking-[0.2em] uppercase font-light">
@@ -140,7 +145,7 @@ export default function CatalogClient() {
 
               <div className="mt-auto">
                 <a 
-                  href={getWhatsAppLink(part.name, part.ref)}
+                  href={getWhatsAppLink(part.name)}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`S'informer sur WhatsApp pour ${part.name}`}
@@ -150,16 +155,13 @@ export default function CatalogClient() {
                   <span>S'informer</span>
                 </a>
               </div>
-              <div className="absolute -bottom-4 -right-4 font-display text-[6rem] font-900 text-white/2 pointer-events-none" aria-hidden="true">
-                {part.id}
-              </div>
             </article>
           ))}
         </div>
 
         {filteredParts.length === 0 && (
           <div className="text-center py-20 border border-white/5 bg-[#080808]">
-             <p className="text-white/60 font-display uppercase tracking-widest text-xs">Index vide</p>
+             <p className="text-white/60 font-display uppercase tracking-widest text-xs">Aucune pièce trouvée</p>
           </div>
         )}
       </section>

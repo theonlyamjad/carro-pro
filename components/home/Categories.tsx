@@ -9,11 +9,11 @@ import Link from "next/link";
 gsap.registerPlugin(ScrollTrigger);
 
 const categories = [
-  { id: "01", label: "Pare-choc", sub: "Structures Avant & Arrière", count: "240" },
-  { id: "02", label: "Phares", sub: "Systèmes LED & Xénon", count: "185" },
-  { id: "03", label: "Ailes", sub: "Protection Latérale d'Origine", count: "310" },
-  { id: "04", label: "Capot", sub: "Composants Moteur & Face", count: "95" },
-  { id: "05", label: "Accessoires", sub: "Rétroviseurs & Finitions", count: "420" },
+  { id: "01", label: "Pare-choc", sub: "Structures Avant & Arrière" },
+  { id: "02", label: "Phares", sub: "Systèmes LED & Xénon" },
+  { id: "03", label: "Ailes", sub: "Protection Latérale d'Origine" },
+  { id: "04", label: "Capot", sub: "Composants Moteur & Face" },
+  { id: "05", label: "Accessoires", sub: "Rétroviseurs & Finitions"},
 ];
 
 export default function Categories() {
@@ -77,14 +77,7 @@ export default function Categories() {
                 </p>
               </div>
 
-              <div className="relative z-10 flex items-end justify-between mt-16">
-                <div>
-                  <div className="font-display text-4xl font-900 text-white leading-none tracking-tighter transition-transform duration-500 group-hover:-translate-y-1">
-                    {cat.count}
-                  </div>
-                  <div className="text-[0.55rem] tracking-[0.2em] text-[#cc1f1f] font-black uppercase mt-1">Stock Actuel</div>
-                </div>
-                
+              <div className="relative z-10 flex items-end justify-center mt-16">
                 <div className="w-10 h-10 border border-white/10 group-hover:border-[#cc1f1f] group-hover:bg-[#cc1f1f] flex items-center justify-center transition-all duration-500 rounded-none transform group-hover:rotate-45">
                   <ArrowUpRight size={16} className="text-white/40 group-hover:text-white transition-colors duration-500 transform group-hover:-rotate-45" />
                 </div>
